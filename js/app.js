@@ -1,4 +1,4 @@
-var app = angular.module('quizApp', []);
+var app = angular.module('quizApp', ['quiz.controllers','quiz.services']);
 
 app.directive('quiz', function(quizFactory) {
 	return {
@@ -6,10 +6,12 @@ app.directive('quiz', function(quizFactory) {
 		scope: {},
 		templateUrl: 'template.html',
 		link: function(scope, elem, attrs) {
+			scope.getQuestions = quizFactory.getQuestions();
 			scope.start = function() {
 				scope.id = 0;
 				scope.quizOver = false;
 				scope.inProgress = true;
+				scope.checkNull = false;
 				scope.getQuestion();
 			};
 
@@ -31,18 +33,22 @@ app.directive('quiz', function(quizFactory) {
 			};
 
 			scope.checkAnswer = function() {
-				if(!$('input[name=answer]:checked').length) return;
-
-				var ans = $('input[name=answer]:checked').val();
-
-				if(ans == scope.options[scope.answer]) {
-					scope.score++;
-					scope.correctAns = true;
+				if(!$('input[name=answer]:checked').length) {
+					scope.checkNull = true;
+					return;
 				} else {
-					scope.correctAns = false;
+					var ans = $('input[name=answer]:checked').val();
+
+					if(ans == scope.options[scope.answer]) {
+						scope.score++;
+						scope.correctAns = true;
+					} else {
+						scope.correctAns = false;
+					}
+					scope.answerMode = false;
+					scope.checkNull = false;
 				}
 
-				scope.answerMode = false;
 			};
 
 			scope.nextQuestion = function() {
@@ -55,42 +61,9 @@ app.directive('quiz', function(quizFactory) {
 	}
 });
 
-app.factory('quizFactory', function() {
-	var questions = [
-		{
-			question: "Which is the largest country in the world by population?",
-			options: ["India", "USA", "China", "Russia"],
-			answer: 2
-		},
-		{
-			question: "When did the second world war end?",
-			options: ["1945", "1939", "1944", "1942"],
-			answer: 0
-		},
-		{
-			question: "Which was the first country to issue paper currency?",
-			options: ["USA", "France", "Italy", "China"],
-			answer: 3
-		},
-		{
-			question: "Which city hosted the 1996 Summer Olympics?",
-			options: ["Atlanta", "Sydney", "Athens", "Beijing"],
-			answer: 0
-		},
-		{	
-			question: "Who invented telephone?",
-			options: ["Albert Einstein", "Alexander Graham Bell", "Isaac Newton", "Marie Curie"],
-			answer: 1
-		}
-	];
-
-	return {
-		getQuestion: function(id) {
-			if(id < questions.length) {
-				return questions[id];
-			} else {
-				return false;
-			}
-		}
-	};
-});
+app.filter('customKeyFormat',function(){
+	return function(input){
+		var nameStr = input.replace(" ","");
+		return nameStr;
+	}
+})

@@ -1,0 +1,14 @@
+
+
+@mixin center-div() {
+	margin: 0 auto;
+	float: none;
+}
+
+.row {
+	.col {
+		&.middle {
+			@include center-div;
+		}		
+	}
+}
