@@ -1,46 +1,60 @@
 <div class="quiz-area" ng-show="inProgress">
+	
+	<!-- Screen: Score Display -->	
+	<div id="score">
+		<p ng-class="test">test here</p>
+		<h5 class="header col s12 light">Your Score: {{score}}</h5>
+	</div>
+	
+	<p ng-class="{{ClassName}}"> test</p>
 	<div ng-show="!quizOver">
 		<h5 class="header col s12 light" id="question">{{question}}</h5>
-		<form action="#">
-			<p ng-repeat="option in options">
-				<input class="with-gap" id="{{option | customKeyFormat}}" type="radio" name="answer" value="{{option}}">
-				<label for="{{option | customKeyFormat}}">{{option}}</label>
-				
-			</p>
-		</form>
+		<div class="row">
+			<div class="col 6 s6 middle">
+				<form action="#">
+					<p ng-repeat="option in options">
+						<input class="with-gap" id="{{option | customKeyFormat}}" type="radio" name="answer" value="{{option}}">
+						<label for="{{option | customKeyFormat}}">{{option}}</label>
+						
+					</p>
+				</form>
+			</div>
+		</div>
+
 		<button class="btn-large waves-effect waves-light orange" ng-click="checkAnswer()" ng-show="answerMode">Submit</button>
 		
 		<!-- show notice here -->
-	
 		
 		<div ng-show="!answerMode">
 			<button  class="btn-large waves-effect waves-light orange" ng-click="nextQuestion()" class="next-question">Next</button>
 			<p>
-				<span ng-show="correctAns">That is correct!</span>
-				<span ng-show="!correctAns">Sorry, that is an incorrect answer.</span>
+				<span class="label label-default" ng-show="correctAns">That is correct!</span>
+				<span class="label label-default" ng-show="!correctAns">Sorry, that is an incorrect answer.</span>
     		</p>
 		</div>
 
 		<div ng-show="answerMode">
 			<div ng-show="checkNull">
-				<p>Funny and complex</p>
+				<p>
+					<span class="label label-default">Funny and complex</span>
+				</p>
 			</div>
 		</div>
+		
 	</div>
 
+	
+	<!-- Screen: Quiz Over - Play again -->	
 	<div ng-show="quizOver">
 		<h5 class="header col s12 light">Quiz is over</h5>
 		<button  class="btn-large waves-effect waves-light orange" ng-click="reset()">Play again</button>
 	</div>
 
-	<div id="score">
-		Score: {{score}}
-	</div>
 </div>
 
+<!-- Screen: Introduction -->
 <div class="intro" ng-show="!inProgress">
-	<p>Welcome to the QuizApp</p>
+	<p>Guess the name of Club</p>
+	<p><img src="img/guess-logo.jpg" alt=""></p>
 	<button id="startQuiz" class="btn-large waves-effect waves-light orange" ng-click="start()">Start the Quiz</button>
 </div>
-
-<!-- <p>{{getQuestions}}</p> -->

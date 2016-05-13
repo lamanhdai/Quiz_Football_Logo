@@ -1,4 +1,28 @@
+/* CSS Row and Column */
 .row .col.middle {
   margin: 0 auto;
   float: none;
+}
+
+/* CSS box */
+.bg-primary {
+  padding: 10px;
+  background: #337ab7;
+}
+
+.test {
+  background: red;
+  color: red;
+}
+
+.aasfs {
+  color: red;
+}
+
+.odd {
+  color: red;
+}
+
+.textType {
+  color: red;
 }

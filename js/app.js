@@ -1,12 +1,25 @@
 var app = angular.module('quizApp', ['quiz.controllers','quiz.services']);
 
+
+// Custom directive
 app.directive('quiz', function(quizFactory) {
 	return {
 		restrict: 'AE',
-		scope: {},
+		scope: {
+			inputValue: '='
+		},
 		templateUrl: 'template.html',
+		 // bindToController: true,
+	  //    controllerAs: 'ctrl',
+	  //    controller: function(){
+	  //        this.getClass(){
+	  //          return (ctrl.inputValue === 'something' ? "myButton1" : "myButton2");
+	  //        }
+	  //    },
 		link: function(scope, elem, attrs) {
 			scope.getQuestions = quizFactory.getQuestions();
+			scope.ClassName = "test";
+
 			scope.start = function() {
 				scope.id = 0;
 				scope.quizOver = false;
@@ -16,6 +29,7 @@ app.directive('quiz', function(quizFactory) {
 			};
 
 			scope.reset = function() {
+				scope.quizOver = false;
 				scope.inProgress = false;
 				scope.score = 0;
 			}
@@ -37,7 +51,11 @@ app.directive('quiz', function(quizFactory) {
 					scope.checkNull = true;
 					return;
 				} else {
-					var ans = $('input[name=answer]:checked').val();
+					//disable all options
+					$('input[name=answer]').attr('disabled','disabled');
+
+					var $checkedOpt = $('input[name=answer]:checked'),
+					    		ans = $checkedOpt.val();
 
 					if(ans == scope.options[scope.answer]) {
 						scope.score++;
@@ -61,6 +79,7 @@ app.directive('quiz', function(quizFactory) {
 	}
 });
 
+// Filter: Replace item for unique name
 app.filter('customKeyFormat',function(){
 	return function(input){
 		var nameStr = input.replace(" ","");
