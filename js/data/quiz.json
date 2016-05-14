@@ -2,29 +2,19 @@
     "results": 
     	[
 			{
-				"question": "Which is the largest country in the world by population?",
-				"options": ["Hello World", "AA", "China", "Russia"],
-				"answer": 2
+				"question": "img/club/chelsea.png",
+				"options": ["Chelsea", "Ajax", "Leicester City", "Napoli"],
+				"answer": 0
 			},
 			{
-				"question": "When did the second world war end?",
+				"question": "img/club/chelsea.png",
 				"options": ["1945", "1939", "1944", "1942"],
 				"answer": 0
 			},
 			{
-				"question": "Which was the first country to issue paper currency?",
+				"question": "img/club/chelsea.png",
 				"options": ["USA", "France", "Italy", "China"],
 				"answer": 3
-			},
-			{
-				"question": "Which city hosted the 1996 Summer Olympics?",
-				"options": ["Atlanta", "Sydney", "Athens", "Beijing"],
-				"answer": 0
-			},
-			{	
-				"question": "Who invented telephone?",
-				"options": ["Albert Einstein", "Alexander Graham Bell", "Isaac Newton", "Marie Curie"],
-				"answer": 1
 			}
 	]
 }

@@ -1,45 +1,52 @@
 <div class="quiz-area" ng-show="inProgress">
 	
 	<!-- Screen: Score Display -->	
-	<div id="score">
-		<p ng-class="test">test here</p>
+	<div id="score" class="row">
 		<h5 class="header col s12 light">Your Score: {{score}}</h5>
+		<i class="material-icons dp48">query_builder</i>
+		<span class="time">{{hour}}:{{minute}}:{{second}}</span>
 	</div>
 	
-	<p ng-class="{{ClassName}}"> test</p>
 	<div ng-show="!quizOver">
-		<h5 class="header col s12 light" id="question">{{question}}</h5>
+		
+		<!-- Screen: Show Answers -->
 		<div class="row">
 			<div class="col 6 s6 middle">
+				<img src="{{question}}" alt="">
 				<form action="#">
-					<p ng-repeat="option in options">
-						<input class="with-gap" id="{{option | customKeyFormat}}" type="radio" name="answer" value="{{option}}">
-						<label for="{{option | customKeyFormat}}">{{option}}</label>
-						
-					</p>
+					<ul class="checklist">
+						<li ng-repeat="option in options">
+							<input class="with-gap" id="{{option | customKeyFormat}}" type="radio" name="answer" value="{{option}}">
+							<label for="{{option | customKeyFormat}}">{{option}}</label>
+						</li>
+					</ul>
 				</form>
 			</div>
 		</div>
+		<!-- End Screen: Show Answers -->
+
+		<!-- Screen: Check Answer Input -->
+		<div ng-show="answerMode">
+			<div ng-show="checkNull">
+				<p>
+					<span class="label label-default">Please choose an answer</span>
+				</p>
+			</div>
+		</div>
+		<!-- End Screen: Check Answer Input -->
 
 		<button class="btn-large waves-effect waves-light orange" ng-click="checkAnswer()" ng-show="answerMode">Submit</button>
 		
 		<!-- show notice here -->
-		
 		<div ng-show="!answerMode">
-			<button  class="btn-large waves-effect waves-light orange" ng-click="nextQuestion()" class="next-question">Next</button>
 			<p>
 				<span class="label label-default" ng-show="correctAns">That is correct!</span>
 				<span class="label label-default" ng-show="!correctAns">Sorry, that is an incorrect answer.</span>
     		</p>
+			<button  class="btn-large waves-effect waves-light orange" ng-click="nextQuestion()" class="next-question">Next</button>
 		</div>
 
-		<div ng-show="answerMode">
-			<div ng-show="checkNull">
-				<p>
-					<span class="label label-default">Funny and complex</span>
-				</p>
-			</div>
-		</div>
+		
 		
 	</div>
 
@@ -47,6 +54,7 @@
 	<!-- Screen: Quiz Over - Play again -->	
 	<div ng-show="quizOver">
 		<h5 class="header col s12 light">Quiz is over</h5>
+		<!-- <p>Total: {{calcTimer()}} seconds</p> -->
 		<button  class="btn-large waves-effect waves-light orange" ng-click="reset()">Play again</button>
 	</div>
 
@@ -55,6 +63,6 @@
 <!-- Screen: Introduction -->
 <div class="intro" ng-show="!inProgress">
 	<p>Guess the name of Club</p>
-	<p><img src="img/guess-logo.jpg" alt=""></p>
+	<p><img src="img/fcb.jpg" alt=""></p>
 	<button id="startQuiz" class="btn-large waves-effect waves-light orange" ng-click="start()">Start the Quiz</button>
 </div>
